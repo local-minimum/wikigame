@@ -5,4 +5,4 @@ services:
     ports: ["5033:5000"]
     restart: "unless-stopped"
     volumes:
-      - ./games.json:/games.json
+      - ./persistance:/persistance

@@ -3,12 +3,13 @@ from json import dump, load
 
 from wikigame.wiki import get_page_info, get_random_page_name
 
+_LOCATION = '/persistance/games.json'
 _KNOWN_GAMES = {}
 
 
 def init_game():
     try:
-        with open('/games.json', 'r') as fh:
+        with open(_LOCATION, 'r') as fh:
             for key, value in load(fh):
                 _KNOWN_GAMES[tuple(key)] = value
     except FileExistsError:
@@ -19,7 +20,7 @@ def _record_chosen(wiki, gamename, which, page):
     language = wiki.language
     key = (language, gamename, which)
     _KNOWN_GAMES[key] = page
-    with open('/games.json', 'w') as fh:
+    with open(_LOCATION, 'w') as fh:
         dump(list(_KNOWN_GAMES.items()), fh)
     
 
