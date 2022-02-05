@@ -1,6 +1,7 @@
 import random
 import logging
 from functools import lru_cache
+from sqlite3 import NotSupportedError
 from urllib.parse import unquote
 
 import wikipediaapi
@@ -8,11 +9,15 @@ import requests
 
 _BASE_URL = 'https://{language}.wikipedia.org/wiki/'
 _MAX_LINKS = 20
-
+_ALLOWED_LANGUAGES = {
+    'en', 'sv', 'de', 'fr',
+}
 
 @lru_cache(maxsize=20)
 def get_wiki(language):
-    return wikipediaapi.Wikipedia(language)
+    if language in _ALLOWED_LANGUAGES:
+        return wikipediaapi.Wikipedia(language)
+    raise NotSupportedError()
 
 
 def _truncate_summary(summary):
