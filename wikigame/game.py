@@ -12,7 +12,7 @@ def init_game():
         with open(_LOCATION, 'r') as fh:
             for key, value in load(fh):
                 _KNOWN_GAMES[tuple(key)] = value
-    except FileExistsError:
+    except FileNotFoundError:
         pass
 
 
