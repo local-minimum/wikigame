@@ -31,7 +31,7 @@ def send_home():
 def start_game(language, gamename):
     wiki = get_wiki(language)
     target = get_target(wiki, gamename)
-    start = get_start(wiki, gamename, target)
+    start = get_start(wiki, gamename, target['title'])
     return jsonify(target=target, start=start)
 
 
