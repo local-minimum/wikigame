@@ -4,5 +4,5 @@ services:
     build: .
     ports: ["5033:5000"]
     restart: "unless-stopped"
-    mount:
-      './games.json:/games.json'
+    volumes:
+      - ./games.json:/games.json
