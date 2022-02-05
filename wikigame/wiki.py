@@ -37,7 +37,7 @@ def filter_links(game_name, page_name, links, target=None):
     ]
     links = [':'.join([prefix] + rest)
             for prefix, *rest in links
-            if prefix and rest  # links that have prefixes are not allowed
+            if not (prefix and rest)  # links that have prefixes are not allowed
     ]
     r = random.Random()
     r.seed(hash(game_name + page_name))
