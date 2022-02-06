@@ -39,7 +39,7 @@ h2 {
     background-color: #062E03;
     color: #FF964F;
     margin-bottom: 1em;
-    min-height: 8em;
+    min-height: 4em;
     padding: 1em 0.5em 1.5em;
     border-radius: 10px;
     font-weight: bold;
@@ -50,17 +50,18 @@ h2 {
     flex-direction: row;
     flex-wrap: wrap;    
     align-items: initial;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 .link {
+    font-size: 0.9em;
     border-color: #062E03;
     color: #062E03;
     border-width: 2px;
     border-style: solid;
     border-radius: 5px;
     margin: 0.5em;
-    padding: 0.5em 1em;
-    cursor: pointer;
+    padding: 0.25em 1em;
+    cursor: pointer;    
 }
 
 #stats {

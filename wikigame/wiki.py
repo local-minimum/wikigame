@@ -21,7 +21,7 @@ def get_wiki(language):
 
 
 def _truncate_summary(summary):
-    max_len = 200
+    max_len = 300
     if len(summary) <= max_len:
         return summary
     *_, remain = summary[:max_len][::-1].split(' ', 1)
