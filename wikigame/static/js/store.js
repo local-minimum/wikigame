@@ -11,7 +11,14 @@ window.wikiStore = {
     setTarget: function setTarget(target) { this._TARGET = target; },
 
     _VISITED: {},
-    clearVisited: function clearVisited() { this._VISITED = {}; },
+    _HISTORY: [],
+    clearVisited: function clearVisited() { this._VISITED = {}; this._HISTORY = []; },
     getVisited: function getVisited(location) { return this._VISITED[location]; },
-    setVisited: function setVisited(location) { this._VISITED[location.title] = location },
+    setVisited: function setVisited(location) { 
+        this._VISITED[location.title] = location;
+        this._HISTORY.push(location.title);
+    },
+    getHistory: function getHistory() {
+        return this._HISTORY;
+    }
 };

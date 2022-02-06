@@ -22,11 +22,6 @@ h1 {
     width: 30%;
     padding: 1em;
 }
-#map {
-    display: inline-block;
-    padding: 1em;
-    width: 40%;
-}
 #target-place {
     width: 30%;
     display: inline-block;
@@ -88,4 +83,17 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;    
+}
+#map {
+    display: inline-block;
+    padding: 1em;
+    width: 40%;
+}
+#visited-places {
+    display: flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;    
+    align-items: initial;
+    justify-content: flex-start;
 }

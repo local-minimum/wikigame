@@ -20,7 +20,7 @@ function showPosition(info) {
     nameDiv.innerHTML = info.title;
     descriptionDiv.innerHTML = info.summary;
     linksDiv.innerHTML = info.links
-        .sort((a, b) => a > b ? -1 : (a === b ? 0 : 1))
+        .sort((a, b) => a > b ? 1 : (a === b ? 0 : -1))
         .map(destination => createLink(destination)).join('');
 }
 
@@ -36,11 +36,20 @@ function showTarget(info) {
     descriptionDiv.innerHTML = info.summary;
 }
 
+function showHistory() {
+    const historyDiv = document.getElementById('history');
+    historyDiv.innerHTML = wikiStore.getHistory()
+        .map(destination => createLink(destination)).join('')
+}
+
 function goTo(destination) {
     axios
         .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: destination })
         .then(function (response) {
-            if (response.data != null) wikiStore.setVisited(response.data);
+            if (response.data != null) {
+                showHistory();
+                wikiStore.setVisited(response.data);
+            }
             showPosition(response.data);
         })
         .catch(function () {
