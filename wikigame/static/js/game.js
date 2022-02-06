@@ -19,7 +19,9 @@ function showPosition(info) {
     }
     nameDiv.innerHTML = info.title;
     descriptionDiv.innerHTML = info.summary;
-    linksDiv.innerHTML = info.links.map(destination => createLink(destination)).join('');
+    linksDiv.innerHTML = info.links
+        .sort((a, b) => a > b ? -1 : (a === b ? 0 : 1))
+        .map(destination => createLink(destination)).join('');
 }
 
 function showTarget(info) {
