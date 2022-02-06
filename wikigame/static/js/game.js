@@ -33,7 +33,7 @@ function goTo(destination) {
     axios
         .post(`api/${language}/game/${gameName}/page`, { page: destination })
         .then(function (response) {
-            showPosition(response);
+            showPosition(response.data);
         })
         .catch(function () {
             showPosition(null);
@@ -47,8 +47,8 @@ function setup() {
     axios
         .get(`api/${language}/game/${gameName}`)
         .then(function (response) {
-            showPosition(response.start);
-            showTarget(response.target);
+            showPosition(response.data?.start);            
+            showTarget(response.data?.target);
         })
         .catch(function () {
             showPosition(null);
