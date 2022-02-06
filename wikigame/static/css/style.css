@@ -1,16 +1,21 @@
 body {
-    background-color: #FF964F;
+    background-color: #728639;
     color: #062E03;
+    margin: 0px;
 }
 
 #playing-field {
     height: 100%;
     width: 100%;
-    padding: 0;
+    padding: 0px;
+}
+#banner {
+    color: #062E03;
+    background-color: #FF964F;
+    padding: 0.5em 2em 1em;
 }
 h1 {
     text-transform: uppercase;
-    display: block;
 }
 #current-place {
     display: inline-block;
@@ -32,7 +37,7 @@ h2 {
 }
 .description {
     background-color: #062E03;
-    color: #728639;
+    color: #FF964F;
     margin-bottom: 1em;
     min-height: 8em;
     padding: 1em 0.5em 1.5em;
