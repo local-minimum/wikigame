@@ -21,6 +21,11 @@ def send_js(path):
     return send_from_directory('static/js', path)
 
 
+@app.route('/css/<path:path>')
+def send_js(path):
+    return send_from_directory('static/css', path)
+
+
 @app.route('/')
 @app.route('/index.html')
 def send_home():
