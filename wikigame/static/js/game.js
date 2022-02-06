@@ -60,6 +60,7 @@ function goTo(destination) {
 
 function setup() {
     wikiStore.clearVisited();
+    showHistory();
     axios
         .get(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}`)
         .then(function (response) {
