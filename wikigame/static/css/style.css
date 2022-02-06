@@ -1,0 +1,76 @@
+body {
+    background-color: #FF964F;
+    color: #062E03;
+}
+
+#playing-field {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+h1 {
+    text-transform: uppercase;
+    display: block;
+}
+#current-place {
+    display: inline-block;
+    width: 30%;
+    padding: 1em;
+}
+#map {
+    display: inline-block;
+    padding: 1em;
+    width: 40%;
+}
+#target-place {
+    width: 30%;
+    display: inline-block;
+    padding: 1em;
+}
+h2 {
+    text-transform: uppercase;    
+}
+.description {
+    background-color: #062E03;
+    color: #728639;
+    margin-bottom: 1em;
+    min-height: 8em;
+    padding: 1em 0.5em 1.5em;
+    border-radius: 10px;
+    font-weight: bold;
+}
+#current-place-links {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;    
+    align-items: initial;
+    justify-content: space-around;
+}
+.link {
+    border-color: #062E03;
+    color: #062E03;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    margin: 0.5em;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+
+#stats {
+    background-color: #062E03;
+    color: #728639;
+    flex-grow: 1;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;    
+}

@@ -3,9 +3,31 @@
         <head>
             <title>A path through knowledge</title>
             <meta charset="utf-8">            
+            <link rel="stylesheet" href="wikiz/css/style.css" />
         </head>
         <body>
-            <h1>A path through knowledge</h1>
+            <div id="playing-field">
+                <h1>A path through knowledge</h1>
+                <div class="row">
+                    <div id="current-place" class="column">
+                        <h2 id="current-place-name">Start</h2>
+                        <div id="current-place-description" class="description">This is info about the place</div>
+                        <div id="current-place-links">
+                            <div class="link">Next place</div>
+                            <div class="link">More place</div>
+                            <div class="link">More place</div>
+                            <div class="link">More place</div>
+                            <div class="link">More place</div>
+                        </div>
+                    </div>
+                    <div id="map"></div>
+                    <div id="target-place">
+                        <h2 id="target-place-name">Target</h2>
+                        <div id="target-place-description" class="description">This is info where you will go</div>
+                        <div id="stats"></div>
+                    </div>
+                </div>
+            </div>
         </body>
         <script>
             document.addEventListener(
