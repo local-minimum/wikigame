@@ -34,7 +34,7 @@ function showTarget(info) {
 
 function goTo(destination) {
     axios
-        .post(`api/${language}/game/${gameName}/page`, { page: destination })
+        .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: destination })
         .then(function (response) {
             showPosition(response.data);
         })
@@ -46,7 +46,7 @@ function goTo(destination) {
 
 function setup() {
     axios
-        .get(`api/${language}/game/${gameName}`)
+        .get(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}`)
         .then(function (response) {
             showPosition(response.data?.start);            
             showTarget(response.data?.target);
