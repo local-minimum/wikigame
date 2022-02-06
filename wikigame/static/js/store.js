@@ -16,7 +16,9 @@ window.wikiStore = {
     getVisited: function getVisited(location) { return this._VISITED[location]; },
     setVisited: function setVisited(location) { 
         this._VISITED[location.title] = location;
-        this._HISTORY.push(location.title);
+        if (!this._HISTORY.some(l => l === location.title)) {
+            this._HISTORY.push(location.title);
+        }
     },
     getHistory: function getHistory() {
         return this._HISTORY;
