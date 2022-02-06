@@ -1,3 +1,6 @@
+const language = 'en';
+const gameName = 'test';
+
 function createLink(destination) {
     return `<div class="link" onclick="goTo('${destination}');">${destination}</div>`
 }
@@ -42,8 +45,6 @@ function goTo(destination) {
 
 
 function setup() {
-    const language = 'en';
-    const gameName = 'test';
     axios
         .get(`api/${language}/game/${gameName}`)
         .then(function (response) {
