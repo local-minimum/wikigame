@@ -7,7 +7,7 @@ function showPosition(info) {
     const descriptionDiv = document.getElementById('current-place-description');
     const linksDiv = document.getElementById('current-place-links');
     if (info == null) {
-        nameDiv.innerHTML = '<<OOPS A DEAD END>>';
+        nameDiv.innerHTML = '!! OOPS A DEAD END !!';
         descriptionDiv.innerHTML = 'Step back to one of the othe options.';
         linksDiv.innerHTML = '';
         return;
@@ -21,9 +21,8 @@ function showTarget(info) {
     const nameDiv = document.getElementById('target-place-name');
     const descriptionDiv = document.getElementById('target-place-description');
     if (info == null) {
-        nameDiv.innerHTML = '<<OOPS GAME CORRUPT>>';
+        nameDiv.innerHTML = '!! OOPS GAME CORRUPT !!';
         descriptionDiv.innerHTML = 'Sorry about that try again tomorrow.';
-        linksDiv.innerHTML = '';
         return;
     }
     nameDiv.innerHTML = info.title;
