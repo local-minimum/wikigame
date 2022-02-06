@@ -64,6 +64,15 @@ h2 {
     cursor: pointer;    
 }
 
+.link-target {
+    color: #FF964F;
+    background-color: #062E03;
+}
+
+.link-visited {
+    background-color: #FF964F;
+}
+
 #stats {
     background-color: #062E03;
     color: #728639;

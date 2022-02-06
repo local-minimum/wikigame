@@ -2,7 +2,9 @@ const language = 'en';
 const gameName = 'test';
 
 function createLink(destination) {
-    return `<div class="link" onclick="goTo('${destination}');">${destination}</div>`
+    const target = destination.title == wikiStore.getTarget()?.title;
+    const visited = wikiStore.getVisited(destination.title);
+    return `<div class="link${target ? ' link-target' : (visited ? ' link-visited' : '')}" onclick="goTo('${destination}');">${destination}</div>`
 }
 
 function showPosition(info) {
@@ -36,6 +38,7 @@ function goTo(destination) {
     axios
         .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: destination })
         .then(function (response) {
+            if (response.data != null) wikiStore.setVisited(response.data);
             showPosition(response.data);
         })
         .catch(function () {
@@ -45,11 +48,15 @@ function goTo(destination) {
 
 
 function setup() {
+    wikiStore.clearVisited();
     axios
         .get(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}`)
         .then(function (response) {
-            showPosition(response.data?.start);            
-            showTarget(response.data?.target);
+            const { start, target } = response.data ?? {};
+            if (start != null) wikiStore.setVisited(start);
+            if (target != null) wikiStore.setTarget(target);
+            showPosition(start);            
+            showTarget(target);
         })
         .catch(function () {
             showPosition(null);
