@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html>
-        <head>
-            <title>A path through knowledge</title>
-            <meta charset="utf-8">            
-            <link rel="stylesheet" href="css/style.css" />
-            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-            <script src="js/game.js" />
-        </head>
-        <body>
-            <div id="playing-field">
-                <div id="banner" class="row">
-                    <h1>A path through knowledge</h1>
+    <head>
+        <title>A path through knowledge</title>
+        <meta charset="utf-8">            
+        <link rel="stylesheet" href="css/style.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="js/game.js" />
+    </head>
+    <body>
+        <div id="playing-field">
+            <div id="banner" class="row">
+                <h1>A path through knowledge</h1>
+            </div>
+            <div class="row">
+                <div id="current-place" class="column">
+                    <h2 id="current-place-name">Start</h2>
+                    <div id="current-place-description" class="description">This is info about the place</div>
+                    <div id="current-place-links">
+                        <div class="link">Next place</div>
+                        <div class="link">More place</div>
+                        <div class="link">More place</div>
+                        <div class="link">More place</div>
+                        <div class="link">More places</div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div id="current-place" class="column">
-                        <h2 id="current-place-name">Start</h2>
-                        <div id="current-place-description" class="description">This is info about the place</div>
-                        <div id="current-place-links">
-                            <div class="link">Next place</div>
-                            <div class="link">More place</div>
-                            <div class="link">More place</div>
-                            <div class="link">More place</div>
-                            <div class="link">More places</div>
-                        </div>
-                    </div>
-                    <div id="map"></div>
-                    <div id="target-place">
-                        <h2 id="target-place-name">Target</h2>
-                        <div id="target-place-description" class="description">This is info where you will go</div>
-                        <div id="stats"></div>
-                    </div>
+                <div id="map"></div>
+                <div id="target-place">
+                    <h2 id="target-place-name">Target</h2>
+                    <div id="target-place-description" class="description">This is info where you will go</div>
+                    <div id="stats"></div>
                 </div>
             </div>
-        </body>
-        <script>
-            document.addEventListener(
-                'DOMContentLoaded',
-                () => {
-                    setup();
-                    // document.onkeydown = handleKeyPress;
-                }
-            );
-        </script>
+        </div>
+    </body>
+    <script>
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+                //setup();
+                // document.onkeydown = handleKeyPress;
+            }
+        );
+    </script>
 </html>

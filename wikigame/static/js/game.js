@@ -1,5 +1,5 @@
 function createLink(destination) {
-    return `<div class="link" onClick="goTo('${destination}');">${destination}</div>`
+    return `<div class="link" onclick="goTo('${destination}');">${destination}</div>`
 }
 
 function showPosition(info) {
