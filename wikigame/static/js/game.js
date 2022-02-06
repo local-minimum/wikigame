@@ -46,13 +46,14 @@ function goTo(destination) {
     axios
         .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: destination })
         .then(function (response) {
+            showHistory();
             if (response.data != null) {
-                showHistory();
                 wikiStore.setVisited(response.data);
             }
             showPosition(response.data);
         })
         .catch(function () {
+            showHistory();
             showPosition(null);
         });
 }

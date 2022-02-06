@@ -67,3 +67,4 @@ def get_game_page(wiki, gamename, page):
     if info is None:
         return None 
     info['links'] = info['links'][:25]
+    return info
