@@ -45,5 +45,7 @@ def check_page(language, gamename):
     data = request.get_json()
     wiki = get_wiki(language)
     info = get_page_info(wiki, gamename, data['page'], get_target(wiki, gamename))
+    if info is None:
+        return jsonify(None)
     return jsonify(**info)
 
