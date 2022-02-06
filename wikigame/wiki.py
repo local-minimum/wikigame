@@ -8,7 +8,6 @@ import wikipediaapi
 import requests
 
 _BASE_URL = 'https://{language}.wikipedia.org/wiki/'
-_MAX_LINKS = 20
 _ALLOWED_LANGUAGES = {
     'en', 'sv', 'de', 'fr',
 }
@@ -35,10 +34,10 @@ def filter_links(game_name, page_name, links, target=None):
     links = [
         n.split(':', 1) for n in links
     ]
-    links = [':'.join([prefix] + rest)
+    links = list(set(':'.join([prefix] + rest)
             for prefix, *rest in links
             if not (prefix and rest)  # links that have prefixes are not allowed
-    ]
+    ))
     r = random.Random()
     r.seed(hash(game_name + page_name))
     r.shuffle(links)
@@ -46,9 +45,9 @@ def filter_links(game_name, page_name, links, target=None):
         links.remove(page_name)
     if target in links:
         links.remove(target)
-        links = links[:(_MAX_LINKS - 1)] + [target]
         r.shuffle(links)
-    return links[:_MAX_LINKS]
+        links = [target] + links
+    return links
 
 
 @lru_cache(maxsize=2000)

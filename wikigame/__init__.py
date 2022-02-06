@@ -3,7 +3,7 @@ __version__ = '0.1.0'
 
 from crypt import methods
 from flask import Flask, request, send_from_directory, jsonify
-from wikigame.game import get_start, get_target, init_game
+from wikigame.game import get_game_page, get_start, get_target, init_game
 
 from wikigame.wiki import get_page_info, get_wiki
 
@@ -44,10 +44,7 @@ def start_game(language, gamename):
 def check_page(language, gamename):
     data = request.get_json()
     wiki = get_wiki(language)
-    target = get_target(wiki, gamename)
-    if target is None:
-        return None
-    info = get_page_info(wiki, gamename, data['page'], target['title'])
+    info = get_game_page(wiki, gamename, data['page'])
     if info is None:
         return jsonify(None)
     return jsonify(**info)

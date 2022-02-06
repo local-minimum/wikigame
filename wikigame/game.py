@@ -33,10 +33,10 @@ def get_target(wiki, gamename):
     while True:
         page = get_random_page_name(wiki)
         info = get_page_info(wiki, gamename, page) 
-        if len(info['links']) > 10:
+        if len(info['links']) > 30:
             break
         i += 1
-        if i > 20:
+        if i > 30:
             raise ValueError()
     _record_chosen(wiki, gamename, "target", page)
     return info
@@ -50,10 +50,20 @@ def get_start(wiki, gamename, target):
     while True:
         page = get_random_page_name(wiki)
         info = get_page_info(wiki, gamename, page, target) 
-        if len(info['links']) > 10 and target not in info['links']:
+        if len(info['links']) > 15 and target not in info['links']:
             break
         i += 1
         if i > 20:
             raise ValueError()
     _record_chosen(wiki, gamename, "start", page)
     return info
+
+
+def get_game_page(wiki, gamename, page):
+    target = get_target(wiki, gamename)
+    if target is None:
+        return None
+    info = get_page_info(wiki, gamename, page, target['title'])
+    if info is None:
+        return None 
+    info['links'] = info['links'][:25]
