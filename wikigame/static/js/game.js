@@ -37,8 +37,8 @@ function showTarget(info) {
 }
 
 function showHistory() {
-    const historyDiv = document.getElementById('history');
-    historyDiv.innerHTML = wikiStore.getHistory()
+    const visitedDiv = document.getElementById('visited');
+    visitedDiv.innerHTML = wikiStore.getHistory()
         .map(destination => createLink(destination)).join('')
 }
 
