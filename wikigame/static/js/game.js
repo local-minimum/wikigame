@@ -2,7 +2,7 @@ const language = 'en';
 const gameName = 'test';
 
 function createLink(destination) {
-    const target = destination == wikiStore.getTarget()?.title;
+    const target = destination === wikiStore.getTarget()?.title;
     const visited = wikiStore.getVisited(destination) != null;
     return `<div class="link${target ? ' link-target' : (visited ? ' link-visited' : '')}" onclick="goTo('${destination}');">${destination}</div>`
 }
