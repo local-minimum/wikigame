@@ -27,7 +27,7 @@ function showPosition(info) {
     descriptionDiv.innerHTML = info.summary;
 
     const target = wikiStore.getTarget();    
-    if (target == info.title) {
+    if (target.title == info.title) {
         linksDiv.innerHTML = '';
     } else {
         linksDiv.innerHTML = info.links
