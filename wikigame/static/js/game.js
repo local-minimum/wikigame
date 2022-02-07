@@ -1,5 +1,11 @@
-const language = 'en';
-const gameName = 'test';
+const DAY = 1000 * 60 * 60 * 24;
+const START = new Date(2022, 1, 6);
+
+function getGameID() {
+    const now = new Date();
+    return Math.floor((now - START) / DAY);
+}
+
 
 function createLink(destination) {
     const target = destination === wikiStore.getTarget()?.title;
@@ -38,8 +44,11 @@ function showTarget(info) {
 
 function showHistory() {
     const visitedDiv = document.getElementById('visited');
-    visitedDiv.innerHTML = wikiStore.getHistory()
-        .map(destination => createLink(destination)).join('')
+    const counterSpan = document.getElementById('pages-counter');
+    const history = wikiStore.getHistory();
+    visitedDiv.innerHTML = history 
+        .map(destination => createLink(destination)).join('');
+    counterSpan.innerHTML = `${history.length}`
 }
 
 function goTo(destination) {
@@ -58,9 +67,9 @@ function goTo(destination) {
         });
 }
 
-
 function setup() {
     wikiStore.clearVisited();
+    wikiStore.setGameName(`GAME: ${getGameID()}`);
     showHistory();
     axios
         .get(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}`)

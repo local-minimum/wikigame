@@ -97,3 +97,6 @@ h2 {
     align-items: initial;
     justify-content: flex-start;
 }
+#pages-counter {
+    margin-left: 1em;
+}
