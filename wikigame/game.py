@@ -67,6 +67,8 @@ def get_target(wiki, gamename):
     return info
 
 
+_MAX_LINKS = 25
+
 @lru_cache(maxsize=200)
 def get_start(wiki, gamename, target):
     if (page:=_KNOWN_GAMES.get((wiki.language, gamename, "start"))) is not None:
@@ -81,6 +83,7 @@ def get_start(wiki, gamename, target):
         if i > 20:
             raise ValueError()
     _record_chosen(wiki, gamename, "start", page)
+    info['links'] = info['links'][:_MAX_LINKS]
     return info
 
 
@@ -91,5 +94,5 @@ def get_game_page(wiki, gamename, page):
     info = get_page_info(wiki, gamename, page, target['title'])
     if info is None:
         return None 
-    info['links'] = info['links'][:25]
+    info['links'] = info['links'][:_MAX_LINKS]
     return info
