@@ -6,4 +6,5 @@ services:
     restart: "unless-stopped"
     volumes:
       - ./persistance:/persistance
+      - ./data:/data
       - ./wikigame/static:/app/wikigame/static

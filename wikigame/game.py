@@ -1,10 +1,26 @@
+from collections import defaultdict
 from functools import lru_cache
 from json import dump, load
 
-from wikigame.wiki import get_page_info, get_random_page_name
+from wikigame.wiki import get_en_page_in_language, get_page_info, get_random_page_name
 
 _LOCATION = '/persistance/games.json'
+_NICE_TARGETS_LOCATION = '/data/nice_targets.list'
 _KNOWN_GAMES = {}
+_NICE_TARGETS = {}
+
+
+def load_nice_targets():
+    with open(_NICE_TARGETS_LOCATION) as fh:
+        targets = [w.strip() for w in fh if w.strip()]
+    used_targets = defaultdict(int)
+    for (lang, _, t) in _KNOWN_GAMES:
+        if t != 'target' or lang != 'en':
+            continue
+        used_targets[t] += 1
+
+    for t in targets:
+        _NICE_TARGETS[t] = used_targets[t]
 
 
 def init_game():
@@ -12,6 +28,7 @@ def init_game():
         with open(_LOCATION, 'r') as fh:
             for key, value in load(fh):
                 _KNOWN_GAMES[tuple(key)] = value
+        load_nice_targets()
     except FileNotFoundError:
         pass
 
@@ -24,6 +41,13 @@ def _record_chosen(wiki, gamename, which, page):
         dump(list(_KNOWN_GAMES.items()), fh)
     
 
+def get_nice_target():
+    lowest = min(v for v in _NICE_TARGETS.values())
+    options = {k for k, v in _NICE_TARGETS.items() if v == lowest}
+    option = options.pop()
+    _NICE_TARGETS[option] += 1
+    return option
+
 
 @lru_cache(maxsize=200)
 def get_target(wiki, gamename):
@@ -31,14 +55,15 @@ def get_target(wiki, gamename):
         return get_page_info(wiki, gamename, page)
     i = 0
     while True:
-        page = get_random_page_name(wiki)
-        info = get_page_info(wiki, gamename, page) 
+        en_page = get_nice_target()
+        info = get_en_page_in_language(wiki, gamename, en_page) 
         if len(info['links']) > 30:
             break
         i += 1
         if i > 30:
             raise ValueError()
-    _record_chosen(wiki, gamename, "target", page)
+    if info is not None: 
+        _record_chosen(wiki, gamename, "target", info['title'])
     return info
 
 

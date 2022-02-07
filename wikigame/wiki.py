@@ -19,6 +19,20 @@ def get_wiki(language):
     raise NotSupportedError()
 
 
+def get_en_page_in_language(wiki, game_name, page_name):
+    en_wiki = get_wiki('en')
+    en_page = en_wiki.page(page_name)
+    if not en_page.exists():
+        return None
+    if wiki.language == 'en':
+        return get_page_info(wiki, game_name, en_page.title)
+    page_in_language = en_page.langlinks.get(wiki.language)
+    if not page_in_language.exists():
+        return None
+    return get_page_info(wiki, game_name, page_in_language.title)
+    
+
+
 def _truncate_summary(summary):
     max_len = 300
     if len(summary) <= max_len:
