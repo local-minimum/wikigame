@@ -32,11 +32,11 @@ h1 {
 }
 #current-place {
     display: inline-block;
-    width: 30%;
+    width: 45%;
     padding: 1em;
 }
 #target-place {
-    width: 30%;
+    width: 20%;
     display: inline-block;
     padding: 1em;
 }
@@ -104,7 +104,7 @@ h2 {
 #map {
     display: inline-block;
     padding: 1em;
-    width: 40%;
+    width: 25%;
 }
 #visited {
     display: flex;
