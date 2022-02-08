@@ -30,7 +30,7 @@ def send_css(path):
 @app.route('/')
 @app.route('/index.html')
 def send_home():
-    logging.warning(request.url)
+    logging.warning([request.url, request.full_path, request.base_url])
     if (
         not request.base_url.endswith('/')
         and not request.base_url.endswith('/index.html')
