@@ -18,3 +18,10 @@ const showNavigating = () => {
     const busyDiv = document.getElementById('busy');
     busyDiv.className = 'busy';
 }
+
+const removeChildren = (parent) => {
+    while (parent.lastChild) {
+        parent.removeChild(parent.lastChild);
+    }
+
+}

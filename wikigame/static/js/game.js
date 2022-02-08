@@ -10,7 +10,12 @@ function getGameID() {
 function createLink(destination) {
     const target = destination === wikiStore.getTarget()?.title;
     const visited = wikiStore.getVisited(destination) != null;
-    return `<div class="link${target ? ' link-target' : (visited ? ' link-visited' : '')}" onclick="goTo('${destination}');">${destination}</div>`
+    const node = document.createTextNode(destination);
+    const div = document.createElement('div');
+    div.className = `link${target ? ' link-target' : (visited ? ' link-visited' : '')}`; 
+    div.onclick = () => goTo(destination);
+    div.appendChild(node);
+    return div;
 }
 
 function showPosition(info) {
@@ -27,12 +32,16 @@ function showPosition(info) {
     descriptionDiv.innerHTML = info.summary;
 
     const target = wikiStore.getTarget();    
+    removeChildren(linksDiv);
     if (target.title == info.title) {
-        linksDiv.innerHTML = '';
+        // Show happiness?
     } else {
-        linksDiv.innerHTML = info.links
-            .sort((a, b) => a > b ? 1 : (a === b ? 0 : -1))
-            .map(destination => createLink(destination)).join('');
+        info.links
+            .sort((a, b) => a.localeCompare(b))
+            .forEach(destination => {
+                const link = createLink(destination);
+                linksDiv.appendChild(link);
+            });
     }
 }
 
@@ -52,8 +61,12 @@ function showHistory() {
     const visitedDiv = document.getElementById('visited');
     const counterSpan = document.getElementById('pages-counter');
     const history = wikiStore.getHistory();
-    visitedDiv.innerHTML = history 
-        .map(destination => createLink(destination)).join('');
+    removeChildren(visitedDiv);
+    history 
+        .forEach(destination => {
+            const link = createLink(destination);
+            visitedDiv.appendChild(link);
+        });
     counterSpan.innerHTML = `${history.length}`
 }
 
