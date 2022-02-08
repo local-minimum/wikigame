@@ -75,7 +75,7 @@ _MAX_LINKS = 25
 def get_start(wiki, gamename):
     target = get_target(wiki, gamename)['title']
     if (page:=_KNOWN_GAMES.get((wiki.language, gamename, "start"))) is not None:
-        return get_page_info(wiki, gamename, page)
+        return get_page_info(wiki, gamename, page, target)
     i = 0
     while True:
         page = get_random_page_name(wiki)
