@@ -2,6 +2,7 @@ __version__ = '0.1.0'
 
 
 from crypt import methods
+import logging
 from flask import Flask, redirect, request, send_from_directory, jsonify
 from wikigame.game import get_game_page, get_start, get_target, init_game
 
@@ -29,6 +30,7 @@ def send_css(path):
 @app.route('/')
 @app.route('/index.html')
 def send_home():
+    logging.warning(request.url)
     if (
         not request.base_url.endswith('/')
         and not request.base_url.endswith('/index.html')
@@ -41,7 +43,7 @@ def send_home():
 def start_game(language, gamename):
     wiki = get_wiki(language)
     target = get_target(wiki, gamename)
-    start = get_start(wiki, gamename, target['title'])
+    start = get_start(wiki, gamename)
     return jsonify(target=target, start=start)
 
 
