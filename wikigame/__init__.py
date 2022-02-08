@@ -1,12 +1,10 @@
 __version__ = '0.1.0'
 
 
-from crypt import methods
-import logging
 from flask import Flask, redirect, request, send_from_directory, jsonify
 from wikigame.game import get_game_page, get_start, get_target, init_game
 
-from wikigame.wiki import get_page_info, get_wiki
+from wikigame.wiki import get_wiki
 
 app = Flask(__name__)
 init_game()
@@ -30,7 +28,6 @@ def send_css(path):
 @app.route('/', strict_slashes=True)
 @app.route('/index.html')
 def send_home():
-    logging.warning([request.url, request.path, request.base_url])
     if (
         not request.base_url.endswith('/')
         and not request.base_url.endswith('/index.html')
