@@ -22,5 +22,9 @@ window.wikiStore = {
     },
     getHistory: function getHistory() {
         return this._HISTORY;
-    }
+    },
+
+    _SEEN_RULES: 'seen_rules',
+    getHasSeenRules: function getHasSeenRules() { return localStorage.getItem(this._SEEN_RULES) != null },
+    setHasSeenRules: function setHasSeenRules() { localStorage.setItem(this._SEEN_RULES, 'yes'); },
 };

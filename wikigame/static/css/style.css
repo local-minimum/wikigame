@@ -3,7 +3,9 @@ body {
     color: #062E03;
     margin: 0px;
 }
-
+.hidden {
+    display: none;
+}
 #playing-field {
     height: 100%;
     width: 100%;
@@ -13,6 +15,17 @@ body {
     color: #062E03;
     background-color: #FF964F;
     padding: 0.5em 2em 1em;
+}
+#banner button {
+    color: #062E03;
+    background-color: #FF964F;
+    border-color: #062E03;
+    border-style: solid;    
+    border-radius: 2px;
+    font-size: 1.25em;
+    padding: 0.25em 0.75em;        
+    margin-top: 0.5em;
+    cursor: pointer;
 }
 h1 {
     text-transform: uppercase;
@@ -84,6 +97,10 @@ h2 {
     flex-direction: column;
     align-items: flex-start;    
 }
+.spacer {
+    flex-grow: 1000;
+    flex-shrink: 1000;
+}
 #map {
     display: inline-block;
     padding: 1em;
@@ -99,4 +116,43 @@ h2 {
 }
 #pages-counter {
     margin-left: 1em;
+}
+.instructions {
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    right: 2em;
+    color: #FF964F;
+    background-color: #062E03;
+    padding: 2em;
+    border-radius: 10px;
+    z-index: 1200;
+}
+.instructions button {
+    font-size: 1.5em;
+    color: #062E03;
+    border: none;
+    border-radius: 5px;
+    background-color: #728639;
+    padding: 0.25em 2em;
+    cursor: pointer;
+}
+#busy {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #FF964F;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
+#navigating {
+    font-size: 4em;
+    background-color: #062E03;
+    color: #728639;
+    padding: 1em 2em;
+    border-radius: 10px;
+    align-self: center;
 }

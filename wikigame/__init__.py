@@ -2,7 +2,7 @@ __version__ = '0.1.0'
 
 
 from crypt import methods
-from flask import Flask, request, send_from_directory, jsonify
+from flask import Flask, redirect, request, send_from_directory, jsonify
 from wikigame.game import get_game_page, get_start, get_target, init_game
 
 from wikigame.wiki import get_page_info, get_wiki
@@ -29,6 +29,11 @@ def send_css(path):
 @app.route('/')
 @app.route('/index.html')
 def send_home():
+    if (
+        not request.base_url.endswith('/')
+        and not request.base_url.endswith('/index.html')
+    ):
+        redirect('./index.html')
     return send_from_directory('static', 'index.html')
 
 

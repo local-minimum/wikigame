@@ -5,13 +5,35 @@
         <meta charset="utf-8">            
         <link rel="stylesheet" href="css/style.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="js/util.js"></script>
         <script src="js/store.js"></script>
         <script src="js/game.js"></script>
     </head>
     <body>
+        <div id="how-to-play" class="instructions">
+            <h2>How to play</h2>
+            <p>
+                Each day you are dropped down on a random article on wikipedia
+                and must find your way to a target article.
+            </p>
+            <ul>
+                <li>Your current position is on the left.</li>
+                <li>A selection of the links out from that page are listed below it's summary.</li>
+                <li>On the right you have your target.</li>
+                <li>Click links to navigate and try to find a way to the target visiting as few pages as possible.</li>
+                <li>Pages you've visited are listed in the middle, should you like to backtrack.</li>
+                <li>Visited and target links are color coded to aid you in your search.</li>
+            </ul>
+            <button onclick="hideHowToPlay();">Close</button>
+        </div>
+        <div id="busy">
+            <div id="navigating">Navigating...</div>
+        </div>
         <div id="playing-field">
             <div id="banner" class="row">
                 <h1>A path through knowledge</h1>
+                <div class="spacer"></div>
+                <button onclick="showHowToPlay();">i</button>
             </div>
             <div class="row">
                 <div id="current-place" class="column">
@@ -37,6 +59,11 @@
         document.addEventListener(
             'DOMContentLoaded',
             () => {
+                if (!wikiStore.getHasSeenRules()) {
+                    showHowToPlay();
+                } else {
+                    hideHowToPlay();
+                }
                 setup();
             }
         );

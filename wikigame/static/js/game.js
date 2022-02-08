@@ -58,6 +58,7 @@ function showHistory() {
 }
 
 function goTo(destination) {
+    showNavigating();
     axios
         .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: destination })
         .then(function (response) {
@@ -66,14 +67,17 @@ function goTo(destination) {
                 wikiStore.setVisited(response.data);
             }
             showPosition(response.data);
+            hideNavigating();
         })
         .catch(function () {
             showHistory();
             showPosition(null);
+            hideNavigating();
         });
 }
 
 function setup() {
+    showNavigating();
     wikiStore.clearVisited();
     wikiStore.setGameName(`GAME: ${getGameID()}`);
     showHistory();
@@ -85,9 +89,11 @@ function setup() {
             if (target != null) wikiStore.setTarget(target);
             showPosition(start);            
             showTarget(target);
+            hideNavigating();
         })
         .catch(function () {
             showPosition(null);
             showTarget(null);
+            hideNavigating();
         });
 }
