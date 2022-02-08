@@ -73,10 +73,7 @@ _MAX_LINKS = 25
 
 @lru_cache(maxsize=200)
 def get_start(wiki, gamename):
-    target = get_target(wiki, gamename)
-    logging.warning(target)
-    if target is None: 
-        raise ValueError()
+    target = get_target(wiki, gamename)['title']
     if (page:=_KNOWN_GAMES.get((wiki.language, gamename, "start"))) is not None:
         return get_page_info(wiki, gamename, page)
     i = 0
