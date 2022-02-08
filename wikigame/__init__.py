@@ -27,10 +27,10 @@ def send_css(path):
     return send_from_directory('static/css', path)
 
 
-@app.route('/')
+@app.route('/', strict_slashes=True)
 @app.route('/index.html')
 def send_home():
-    logging.warning([request.url, request.full_path, request.base_url])
+    logging.warning([request.url, request.path, request.base_url])
     if (
         not request.base_url.endswith('/')
         and not request.base_url.endswith('/index.html')

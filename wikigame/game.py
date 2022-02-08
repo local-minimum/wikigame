@@ -1,6 +1,7 @@
 from collections import defaultdict
 from functools import lru_cache
 from json import dump, load
+import logging
 
 from wikigame.wiki import get_en_page_in_language, get_page_info, get_random_page_name
 
@@ -69,9 +70,13 @@ def get_target(wiki, gamename):
 
 _MAX_LINKS = 25
 
+
 @lru_cache(maxsize=200)
 def get_start(wiki, gamename):
     target = get_target(wiki, gamename)
+    logging.warning(target)
+    if target is None: 
+        raise ValueError()
     if (page:=_KNOWN_GAMES.get((wiki.language, gamename, "start"))) is not None:
         return get_page_info(wiki, gamename, page)
     i = 0
