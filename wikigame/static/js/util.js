@@ -16,5 +16,5 @@ const hideNavigating = () => {
 
 const showNavigating = () => {
     const busyDiv = document.getElementById('busy');
-    busyDiv.className = '';
+    busyDiv.className = 'busy';
 }
