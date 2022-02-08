@@ -1,7 +1,6 @@
 from collections import defaultdict
 from functools import lru_cache
 from json import dump, load
-import logging
 
 from wikigame.wiki import get_en_page_in_language, get_page_info, get_random_page_name
 
@@ -82,8 +81,8 @@ def get_start(wiki, gamename):
         i += 1
         if i > 20:
             raise ValueError()
-    _record_chosen(wiki, gamename, "start", page)
-    return info
+    _record_chosen(wiki, gamename, "start", info['title'])
+    return get_page_info(wiki, gamename, info['title'], target)
 
 
 def get_game_page(wiki, gamename, page):

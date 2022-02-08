@@ -1,11 +1,12 @@
 __version__ = '0.1.0'
 
-
+import logging
 from flask import Flask, redirect, request, send_from_directory, jsonify
 from wikigame.game import get_game_page, get_start, get_target, init_game
 
 from wikigame.wiki import get_wiki
 
+logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 init_game()
 
