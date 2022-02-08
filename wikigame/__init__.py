@@ -24,14 +24,14 @@ def send_css(path):
     return send_from_directory('static/css', path)
 
 
-@app.route('/', strict_slashes=True)
+@app.route('/')
 @app.route('/index.html')
 def send_home():
     if (
-        not request.base_url.endswith('/')
-        and not request.base_url.endswith('/index.html')
+        not request.url.endswith('/')
+        and not request.url.endswith('/index.html')
     ):
-        redirect('./index.html')
+        redirect(request.url + '/')
     return send_from_directory('static', 'index.html')
 
 
