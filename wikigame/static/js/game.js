@@ -6,7 +6,6 @@ function getGameID() {
     return Math.floor((now - START) / DAY);
 }
 
-
 function createLink(destination) {
     const target = destination === wikiStore.getTarget()?.title;
     const visited = wikiStore.getVisited(destination) != null;
@@ -22,17 +21,18 @@ function showPosition(info) {
     const nameDiv = document.getElementById('current-place-name');
     const descriptionDiv = document.getElementById('current-place-description');
     const linksDiv = document.getElementById('current-place-links');
+    removeChildren(linksDiv);
     if (info == null) {
         nameDiv.innerHTML = '!! OOPS A DEAD END !!';
         descriptionDiv.innerHTML = 'Step back to one of the othe options.';
-        linksDiv.innerHTML = '';
         return;
     }
-    nameDiv.innerHTML = info.title;
-    descriptionDiv.innerHTML = info.summary;
+    removeChildren(nameDiv);
+    nameDiv.appendChild(document.createTextNode(info.title));
+    removeChildren(descriptionDiv);
+    descriptionDiv.appendChild(document.createTextNode(info.summary));
 
     const target = wikiStore.getTarget();    
-    removeChildren(linksDiv);
     if (target.title == info.title) {
         // Show happiness?
     } else {
@@ -53,8 +53,10 @@ function showTarget(info) {
         descriptionDiv.innerHTML = 'Sorry about that try again tomorrow.';
         return;
     }
-    nameDiv.innerHTML = info.title;
-    descriptionDiv.innerHTML = info.summary;
+    removeChildren(nameDiv);
+    removeChildren(descriptionDiv);
+    nameDiv.appendChild(document.createTextNode(info.title));
+    descriptionDiv.appendChild(document.createTextNode(info.summary));
 }
 
 function showHistory() {
