@@ -25,11 +25,11 @@ def get_en_page_in_language(wiki, game_name, page_name):
     if not en_page.exists():
         return None
     if wiki.language == 'en':
-        return get_page_info(wiki, game_name, en_page.title)
+        return get_page_info(wiki, game_name, en_page.title, max_links=100)
     page_in_language = en_page.langlinks.get(wiki.language)
     if not page_in_language.exists():
         return None
-    return get_page_info(wiki, game_name, page_in_language.title)
+    return get_page_info(wiki, game_name, page_in_language.title, max_links=100)
     
 
 
@@ -65,7 +65,7 @@ def filter_links(game_name, page_name, links, target=None):
 
 
 @lru_cache(maxsize=2000)
-def get_page_info(wiki, game_name, page_name, target=None):
+def get_page_info(wiki, game_name, page_name, target=None, max_links=25):
     page = wiki.page(page_name)
     if not page.exists():
         logging.error(f'Could not find page "{page_name}"')
@@ -73,7 +73,7 @@ def get_page_info(wiki, game_name, page_name, target=None):
     return {
         "title": page.title,
         "summary":  _truncate_summary(page.summary),
-        "links": filter_links(game_name, page_name, page.links.keys(), target)
+        "links": filter_links(game_name, page_name, page.links.keys(), target)[:max_links]
     }
 
 
