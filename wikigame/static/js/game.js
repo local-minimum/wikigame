@@ -60,7 +60,7 @@ function showTarget(info) {
 }
 
 function showHistory() {
-    const target = wikiStore.getTarget().title;
+    const target = wikiStore.getTarget()?.title;
     const visitedDiv = document.getElementById('visited');
     const counterSpan = document.getElementById('pages-counter');
     const history = wikiStore.getHistory();
