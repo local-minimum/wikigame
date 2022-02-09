@@ -6,13 +6,13 @@ function getGameID() {
     return Math.floor((now - START) / DAY);
 }
 
-function createLink(destination) {
+function createLink(destination, disabled=false) {
     const target = destination === wikiStore.getTarget()?.title;
     const visited = wikiStore.getVisited(destination) != null;
     const node = document.createTextNode(destination);
     const div = document.createElement('div');
     div.className = `link${target ? ' link-target' : (visited ? ' link-visited' : '')}`; 
-    div.onclick = () => goTo(destination);
+    div.onclick = () => (disabled ? null : goTo(destination));
     div.appendChild(node);
     return div;
 }
@@ -60,16 +60,20 @@ function showTarget(info) {
 }
 
 function showHistory() {
+    const target = wikiStore.getTarget().title;
     const visitedDiv = document.getElementById('visited');
     const counterSpan = document.getElementById('pages-counter');
     const history = wikiStore.getHistory();
     removeChildren(visitedDiv);
+    const reachedTarget = history.some(destination => destination.title === target);
     history 
         .forEach(destination => {
-            const link = createLink(destination);
+            const link = createLink(destination, reachedTarget);
             visitedDiv.appendChild(link);
         });
-    counterSpan.innerHTML = `${history.length}`
+    const n = history.length;
+    counterSpan.innerHTML = `${n} click${n !== 1 ? 's' : ''}`
+    if (reachedTarget) showCongratulations();
 }
 
 function goTo(destination) {
@@ -77,10 +81,10 @@ function goTo(destination) {
     axios
         .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: destination })
         .then(function (response) {
-            showHistory();
             if (response.data != null) {
                 wikiStore.setVisited(response.data);
             }
+            showHistory();
             showPosition(response.data);
             hideNavigating();
         })
@@ -92,6 +96,7 @@ function goTo(destination) {
 }
 
 function setup() {
+    hideCongratulations();
     showNavigating();
     wikiStore.clearVisited();
     wikiStore.setGameName(`GAME: ${getGameID()}`);
@@ -104,6 +109,7 @@ function setup() {
             if (target != null) wikiStore.setTarget(target);
             showPosition(start);            
             showTarget(target);
+            wikiStore.setVisited(start);
             hideNavigating();
         })
         .catch(function () {

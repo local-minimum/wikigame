@@ -156,3 +156,11 @@ h2 {
     border-radius: 10px;
     align-self: center;
 }
+#congratulations {
+    font-size: 2em;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #062E03;
+    text-shadow: 2px 2px #FF964F;
+    padding: 1em;
+}

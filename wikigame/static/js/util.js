@@ -1,3 +1,13 @@
+const hideCongratulations = () => {
+    const infoDiv = document.getElementById('congratulations');
+    infoDiv.className = 'hidden';
+}
+
+const showCongratulations = () => {
+    const infoDiv = document.getElementById('congratulations');
+    infoDiv.className = '';
+}
+
 const hideHowToPlay = () => {
     const infoDiv = document.getElementById('how-to-play');
     infoDiv.className = 'hidden';
@@ -23,5 +33,4 @@ const removeChildren = (parent) => {
     while (parent.lastChild) {
         parent.removeChild(parent.lastChild);
     }
-
 }
