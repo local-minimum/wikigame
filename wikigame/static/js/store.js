@@ -1,6 +1,7 @@
 window.wikiStore = {
     _LANGUAGE: 'en',
     getLanguage: function getLanguage() { return this._LANGUAGE; },
+    setLanguage: function setLanguage(lang) { this._LANGUAGE = lang; },
 
     _GAME_NAME: 'game: -42',
     getGameName: function getGameName() { return this._GAME_NAME; },

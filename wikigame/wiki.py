@@ -9,7 +9,7 @@ import requests
 
 _BASE_URL = 'https://{language}.wikipedia.org/wiki/'
 _ALLOWED_LANGUAGES = {
-    'en', 'sv', 'de', 'fr',
+    'en', 'sv', 'de', 'fr', 'es',
 }
 
 @lru_cache(maxsize=20)
