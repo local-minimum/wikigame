@@ -65,7 +65,7 @@ function showHistory() {
     const counterSpan = document.getElementById('pages-counter');
     const history = wikiStore.getHistory();
     removeChildren(visitedDiv);
-    const reachedTarget = history.some(destination => destination.title === target);
+    const reachedTarget = history.some(destination => destination === target);
     history 
         .forEach(destination => {
             const link = createLink(destination, reachedTarget);
