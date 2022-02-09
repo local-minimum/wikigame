@@ -71,7 +71,7 @@ function showHistory() {
             const link = createLink(destination, reachedTarget);
             visitedDiv.appendChild(link);
         });
-    const n = history.length;
+    const n = Math.max(0, history.length - 1);
     counterSpan.innerHTML = `${n} click${n !== 1 ? 's' : ''}`
     if (reachedTarget) showCongratulations();
 }
