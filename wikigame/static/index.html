@@ -50,10 +50,25 @@
             <br>
             <button onclick="hideLanguage();">Close</button>
         </div>
+        <div id="custom-game" class="hidden">
+            <h2>Create a custom game</h2>
+            <p>
+                You can select your own wikipedia article (needs to be exact unique match)
+                as target. For example should you fancy
+                <code>https://en.wikipedia.org/wiki/Long-tailed_tit</code> then you need to
+                enter <code>Long-tailed_tit</code> below.
+            </p>
+            <input type="text" name="target" id="custom-target"/>
+            <div id="custom-game-error"></div>
+            <button onclick="setCustomGame()">Set target</button>
+            <br>
+            <button onclick="hideCustom();">Close</button>
+        </div>
         <div id="playing-field">
             <div id="banner" class="row">
                 <h1>A path through knowledge</h1>
                 <div class="spacer"></div>
+                <button onclick="showCustom();">c</button>
                 <button onclick="showLanguage();">l</button>
                 <button onclick="showHowToPlay();">i</button>
             </div>

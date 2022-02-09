@@ -50,3 +50,20 @@ const setLanguage = (language) => {
     hideLanguage();
     setup();
 };
+
+const showCustom = () => {
+    const customDiv = document.getElementById('custom-game');
+    customDiv.className = 'custom-game';
+    const customErrDiv = document.getElementById('custom-game-error');
+    customErrDiv.innerHTML = '';
+};
+
+const hideCustom = () => {
+    const customDiv = document.getElementById('custom-game');
+    customDiv.className = 'hidden';
+};
+
+const showCustomError = (errorMsg) => {
+    const customErrDiv = document.getElementById('custom-game-error');
+    customErrDiv.innerHTML = errorMsg;
+}

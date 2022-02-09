@@ -7,6 +7,10 @@ window.wikiStore = {
     getGameName: function getGameName() { return this._GAME_NAME; },
     setGameName: function setGameName(value) { this._GAME_NAME = value; },
 
+    _START: null,
+    getStart: function getStart() { return this._START; },
+    setStart: function setStart(start) { this._START = start; },
+
     _TARGET: null,
     getTarget: function getTarget() { return this._TARGET; },
     setTarget: function setTarget(target) { this._TARGET = target; },

@@ -187,3 +187,42 @@ h2 {
     display: block;
     margin: 0.5em;
 }
+.custom-game {
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    right: 2em;
+    color: #FF964F;
+    background-color: #062E03;
+    padding: 2em;
+    border-radius: 10px;
+    z-index: 1200;
+}
+.custom-game input {
+    font-size: 1.25em;
+    color: #062E03;
+    border: none;
+    border-radius: 5px;
+    background-color: #FF964F;
+    padding: 0.25em 2em;
+    cursor: pointer;
+    display: block;
+    margin: 0.5em;
+}
+.custom-game button {
+    font-size: 1.5em;
+    color: #062E03;
+    border: none;
+    border-radius: 5px;
+    background-color: #728639;
+    padding: 0.25em 2em;
+    cursor: pointer;
+    display: block;
+    margin: 0.5em;
+}
+#custom-game-error {
+    font-size: 1em;
+    color: #728639;
+    margin: 0.5em 1.5em;
+}
+

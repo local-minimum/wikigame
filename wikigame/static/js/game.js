@@ -97,7 +97,6 @@ function goTo(destination) {
 
 function setup() {
     hideCongratulations();
-    showNavigating();
     wikiStore.clearVisited();
     wikiStore.setGameName(`GAME: ${getGameID()}`);
     showHistory();
@@ -105,8 +104,12 @@ function setup() {
         .get(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}`)
         .then(function (response) {
             const { start, target } = response.data ?? {};
-            if (start != null) wikiStore.setVisited(start);
+            if (start != null) {
+                wikiStore.setVisited(start);
+                wikiStore.setStart(start);
+            }
             if (target != null) wikiStore.setTarget(target);
+            
             showPosition(start);            
             showTarget(target);
             wikiStore.setVisited(start);
@@ -115,6 +118,33 @@ function setup() {
         .catch(function () {
             showPosition(null);
             showTarget(null);
+            hideNavigating();
+        });
+}
+
+const setCustomGame = () => {
+    const inp = document.getElementById('custom-target');
+    const target = inp.value.trim();
+    showNavigating();
+    axios
+        .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: target })
+        .then(function (response) {
+            if (response.data != null) {
+                wikiStore.clearVisited();
+                wikiStore.setTarget(response.data);
+                const start = wikiStore.getStart();
+                showPosition(start);
+                wikiStore.setVisited(start)
+                showTarget(response.data);
+                hideCustom();
+                hideNavigating();
+            } else {
+                showCustomError('Could not locate a page with that name.');
+                hideNavigating();
+            }
+        })
+        .catch(function () {
+            showCustomError('An error occurred looking for the page.');
             hideNavigating();
         });
 }
