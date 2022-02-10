@@ -107,6 +107,7 @@ function goTo(destination) {
 }
 
 function setup(setGameName=true) {
+    showNavigating();
     hideCongratulations();
     hideChallenger();
     wikiStore.setHasChallenge(false);
@@ -257,6 +258,6 @@ const preSetupFromParams = () => {
     } else {
         wikiStore.setHasChallenge(false);
         hideChallenger();
-        setup(gameName != null);
+        setup(gameName == null);
     }
 }
