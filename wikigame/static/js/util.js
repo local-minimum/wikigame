@@ -48,6 +48,7 @@ const hideLanguage = () => {
 const setLanguage = (language) => {
     wikiStore.setLanguage(language);
     hideLanguage();
+    hideChallenger();
     setup();
 };
 
@@ -66,4 +67,41 @@ const hideCustom = () => {
 const showCustomError = (errorMsg) => {
     const customErrDiv = document.getElementById('custom-game-error');
     customErrDiv.innerHTML = errorMsg;
+}
+
+const showChallenger = () => {
+    const challengerDiv = document.getElementById('challenger');
+    challengerDiv.className = '';
+};
+
+const hideChallenger = () => {
+    const challengerDiv = document.getElementById('challenger');
+    challengerDiv.className = 'hidden';
+};
+
+const showChallengerInfo = () => {
+    const challengerInfoDiv = document.getElementById('challenger-info');
+    challengerInfoDiv.className = '';
+};
+
+const hideChallengerInfo = () => {
+    const challengerInfoDiv = document.getElementById('challenger-info');
+    challengerInfoDiv.className = 'hidden';
+};
+
+const showChallengerResults = () => {
+    const challengerResultDiv = document.getElementById('challenger-results');
+    challengerResultDiv.className = '';
+};
+
+const hideChallengerResults = () => {
+    const challengerResultDiv = document.getElementById('challenger-results');
+    challengerResultDiv.className = 'hidden';
+};
+
+const prepareChallengerResults = (challengerHistory) => {
+    hideChallengerResults();
+    showChallengerInfo();
+    showChallenger();    
+    renderAHistory('challenger-history', 'challenger-counter', challengerHistory);
 }

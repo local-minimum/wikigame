@@ -59,21 +59,32 @@ function showTarget(info) {
     descriptionDiv.appendChild(document.createTextNode(info.summary));
 }
 
-function showHistory() {
+function renderAHistory(contentId, counterId, history) {
     const target = wikiStore.getTarget()?.title;
-    const visitedDiv = document.getElementById('visited');
-    const counterSpan = document.getElementById('pages-counter');
-    const history = wikiStore.getHistory();
-    removeChildren(visitedDiv);
+    const historyDiv = document.getElementById(contentId);
+    const counterSpan = document.getElementById(counterId);
+    removeChildren(historyDiv);
     const reachedTarget = history.some(destination => destination === target);
     history 
         .forEach(destination => {
             const link = createLink(destination, reachedTarget);
-            visitedDiv.appendChild(link);
+            historyDiv.appendChild(link);
         });
     const n = Math.max(0, history.length - 1);
-    counterSpan.innerHTML = `${n} click${n !== 1 ? 's' : ''}`
-    if (reachedTarget) showCongratulations();
+    counterSpan.innerHTML = `(${n} click${n !== 1 ? 's' : ''})`
+    return reachedTarget;
+}
+
+function showHistory() {
+    const history = wikiStore.getHistory();
+    const reachedTarget = renderAHistory('visited', 'pages-counter', history);
+    if (reachedTarget) {
+        showCongratulations();
+        if (wikiStore.getHasChallenge()) {
+            hideChallengerInfo();
+            showChallengerResults();
+        }
+    }
 }
 
 function goTo(destination) {
@@ -95,11 +106,12 @@ function goTo(destination) {
         });
 }
 
-function setup() {
+function setup(setGameName=true) {
     hideCongratulations();
+    hideChallenger();
+    wikiStore.setHasChallenge(false);
     wikiStore.clearVisited();
-    wikiStore.setGameName(`GAME: ${getGameID()}`);
-    showHistory();
+    if (setGameName) wikiStore.setGameName(`GAME: ${getGameID()}`);
     axios
         .get(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}`)
         .then(function (response) {
@@ -112,12 +124,13 @@ function setup() {
             
             showPosition(start);            
             showTarget(target);
-            wikiStore.setVisited(start);
+            showHistory();
             hideNavigating();
         })
         .catch(function () {
             showPosition(null);
             showTarget(null);
+            showHistory();
             hideNavigating();
         });
 }
@@ -126,6 +139,9 @@ const setCustomGame = () => {
     const inp = document.getElementById('custom-target');
     const target = inp.value.trim();
     showNavigating();
+    wikiStore.setHasChallenge(false);
+    hideChallenger();
+
     axios
         .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: target })
         .then(function (response) {
@@ -158,6 +174,89 @@ const createChallengeLink = () => {
     }
     const baseUrl = window.location.href.split('?')[0];
     const url = new URL(baseUrl);
-    Object.entries(query).forEach((key, value) => url.append(key, value));
+    Object.entries(query).forEach((key, value) => url.searchParams.append(key, value));
     return url.toString();
+}
+
+const challenge = () => {
+    const url = createChallengeLink();
+    const share = `Try to beat my run: ${url}`;
+    navigator.clipboard.writeText(share);
+    const shareBtn = document.getElementById('share-challenge');
+    if (shareBtn == null) return;
+    shareBtn.innerHTML = "Copied!"
+    window.setTimeout(() => {
+        shareBtn.innerHTML = 'Share Challenge';
+    }, 1000);    
+}
+
+const preSetupFromParams = () => {
+    const params = new URL(window.location).searchParams;
+    const gameName = params.get('gameName');
+    const challenge = params.get('challenge');
+    if (challenge != null) {
+        const challengeHistory = JSON.parse(atob(challenge));
+        wikiStore.setHasChallenge(true);
+        prepareChallengerResults(challengeHistory);
+    }
+    if (gameName != null) {
+        wikiStore.setGameName(gameName);        
+    } else {
+        wikiStore.setHasChallenge(false);
+        hideChallenger();
+    }
+    const language = params.get('language');
+    if (language != null) {
+        wikiStore.setLanguage(language);        
+    } else {
+        wikiStore.setHasChallenge(false);
+        hideChallenger();
+    }
+    const target = params.get('target');
+    if (target != null) {
+        showNavigating();
+        axios
+            .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: target })
+            .then(function (response) {
+                if (response.data != null) {
+                    wikiStore.clearVisited();
+                    wikiStore.setTarget(response.data);
+                    showTarget(response.data);
+                    axios
+                        .get(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}`)
+                        .then(function (response) {
+                            const { start } = response.data ?? {};
+                            if (start != null) {
+                                wikiStore.setVisited(start);
+                                wikiStore.setStart(start);
+                                showChallenger();
+                                showHistory();
+                            } else {
+                                showPosition(null);
+                                showHistory();
+                            }
+                            hideNavigating();
+                        })
+                        .catch(function () {
+                            showPosition(null);
+                            showHistory();
+                            hideNavigating();
+                        });
+                } else {
+                    showTarget(null);
+                    showHistory();
+                    hideNavigating();
+                }
+            })
+            .catch(function () {
+                showTarget(null);
+                showHistory();
+                hideNavigating();
+            });
+
+    } else {
+        wikiStore.setHasChallenge(false);
+        hideChallenger();
+        setup(gameName != null);
+    }
 }

@@ -107,7 +107,7 @@ h2 {
     padding: 1em;
     width: 25%;
 }
-#visited {
+.history {
     display: flex;
     display: flex;
     flex-direction: row;
@@ -115,7 +115,7 @@ h2 {
     align-items: initial;
     justify-content: flex-start;
 }
-#pages-counter {
+.header-counter {
     margin-left: 1em;
 }
 .instructions {
@@ -164,6 +164,18 @@ h2 {
     color: #062E03;
     text-shadow: 2px 2px #FF964F;
     padding: 1em;
+}
+#congratulations button {
+    font-size: 0.5em;
+    color: #062E03;
+    border-width: 2px;
+    border-color: #062E03;
+    border-style: solid;    
+    border-radius: 5px;
+    background-color: inherit;
+    padding: 0.25em 2em;
+    cursor: pointer;
+    margin-top: 1em;
 }
 .languages {
     position: absolute;
@@ -224,5 +236,18 @@ h2 {
     font-size: 1em;
     color: #728639;
     margin: 0.5em 1.5em;
+}
+#challenger-info button {
+    display: block;
+    font-size: 1em;
+    color: #062E03;
+    border-width: 2px;
+    border-color: #062E03;
+    border-style: solid;    
+    border-radius: 5px;
+    background-color: inherit;
+    padding: 0.25em 2em;
+    cursor: pointer;
+    margin-top: 1em;
 }
 
