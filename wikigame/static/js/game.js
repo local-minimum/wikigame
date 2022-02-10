@@ -154,7 +154,7 @@ const createChallengeLink = () => {
         gameName: wikiStore.getGameName(),
         target: wikiStore.getTarget().title,
         language: wikiStore.getLanguage(),
-        challenge: atob(JSON.stringify(wikiStore.getHistory())),
+        challenge: btoa(JSON.stringify(wikiStore.getHistory())),
     }
     const baseUrl = window.location.href.split('?')[0];
     const url = new URL(baseUrl);
