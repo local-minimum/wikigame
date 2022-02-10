@@ -175,8 +175,8 @@ const createChallengeLink = () => {
     }
     const baseUrl = window.location.href.split('?')[0];
     const url = new URL(baseUrl);
-    Object.entries(query).forEach((key, value) => url.searchParams.append(key, value));
-    return url.toString();
+    Object.entries(query).forEach(([key, value]) => url.searchParams.append(key, value));
+    return url;
 }
 
 const challenge = () => {
