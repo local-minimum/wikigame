@@ -148,3 +148,16 @@ const setCustomGame = () => {
             hideNavigating();
         });
 }
+
+const createChallengeLink = () => {
+    const query = {
+        gameName: wikiStore.getGameName(),
+        target: wikiStore.getTarget().title,
+        language: wikiStore.getLanguage(),
+        challenge: atob(JSON.stringify(wikiStore.getHistory())),
+    }
+    const baseUrl = window.location.href.split('?')[0];
+    const url = new URL(baseUrl);
+    Object.entries(query).forEach((key, value) => url.append(key, value));
+    return url.toString();
+}
