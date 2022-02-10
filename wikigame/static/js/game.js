@@ -230,6 +230,7 @@ const preSetupFromParams = () => {
                             if (start != null) {
                                 wikiStore.setVisited(start);
                                 wikiStore.setStart(start);
+                                showPosition(start);
                                 showChallenger();
                                 showHistory();
                             } else {
