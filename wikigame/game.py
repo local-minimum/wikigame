@@ -1,26 +1,32 @@
 from collections import defaultdict
 from functools import lru_cache
 from json import dump, load
+from glob import glob
+import logging
 
 from wikigame.wiki import get_en_page_in_language, get_page_info, get_random_page_name
 
 _LOCATION = '/persistance/games.json'
-_NICE_TARGETS_LOCATION = '/data/nice_targets.list'
+_TARGETS_PATH = '/data/*.list'
 _KNOWN_GAMES = {}
-_NICE_TARGETS = {}
 
 
-def load_nice_targets():
-    with open(_NICE_TARGETS_LOCATION) as fh:
-        targets = [w.strip() for w in fh if w.strip()]
+def load_targets():
+    counted_targets = {}
     used_targets = defaultdict(int)
     for (lang, _, t) in _KNOWN_GAMES:
         if t != 'target' or lang != 'en':
             continue
         used_targets[t] += 1
 
-    for t in targets:
-        _NICE_TARGETS[t] = used_targets[t]
+    for path in glob(_TARGETS_PATH):
+        with open(path, 'r') as fh:
+            targets = [w.strip() for w in fh if w.strip()]
+
+        for t in targets:
+            if t not in counted_targets:
+                counted_targets[t] = used_targets[t]
+    return counted_targets
 
 
 def init_game():
@@ -28,7 +34,7 @@ def init_game():
         with open(_LOCATION, 'r') as fh:
             for key, value in load(fh):
                 _KNOWN_GAMES[tuple(key)] = value
-        load_nice_targets()
+        load_targets()
     except FileNotFoundError:
         pass
 
@@ -42,10 +48,10 @@ def _record_chosen(wiki, gamename, which, page):
     
 
 def get_nice_target():
-    lowest = min(v for v in _NICE_TARGETS.values())
-    options = {k for k, v in _NICE_TARGETS.items() if v == lowest}
+    counted_targets = load_targets()
+    lowest = min(v for v in counted_targets.values())
+    options = {k for k, v in counted_targets.items() if v == lowest}
     option = options.pop()
-    _NICE_TARGETS[option] += 1
     return option
 
 
@@ -64,6 +70,7 @@ def get_target(wiki, gamename):
             raise ValueError()
     if info is not None: 
         _record_chosen(wiki, gamename, "target", info['title'])
+        logging.warning(f'Decided on "{info["title"]}" target for {gamename} ({wiki.language})')
     return info
 
 
@@ -82,6 +89,7 @@ def get_start(wiki, gamename):
         if i > 20:
             raise ValueError()
     _record_chosen(wiki, gamename, "start", info['title'])
+    logging.warning(f'Decided on "{info["title"]}" start for {gamename} ({wiki.language})')
     return get_page_info(wiki, gamename, info['title'], target)
 
 
