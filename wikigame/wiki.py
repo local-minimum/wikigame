@@ -65,7 +65,7 @@ def filter_links(game_name, page_name, links, target=None):
 
 
 @lru_cache(maxsize=2000)
-def get_page_info(wiki, game_name, page_name, target=None, max_links=25):
+def get_page_info(wiki, game_name, page_name, target=None, max_links=30):
     logging.warning([wiki.language, game_name, page_name, target, max_links])
     page = wiki.page(page_name)
     if not page.exists():
@@ -73,7 +73,7 @@ def get_page_info(wiki, game_name, page_name, target=None, max_links=25):
         return None
     return {
         "title": page.title,
-        "summary":  _truncate_summary(page.summary),
+        "summary": _truncate_summary(page.summary),
         "links": filter_links(game_name, page_name, page.links.keys(), target)[:max_links]
     }
 

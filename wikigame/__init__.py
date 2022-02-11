@@ -1,6 +1,7 @@
 __version__ = '0.1.0'
 
 from flask import Flask, redirect, request, send_from_directory, jsonify
+from wikigame.convo_mines import get_game_board
 from wikigame.game import get_game_page, get_start, get_target, init_game
 
 from wikigame.wiki import get_wiki
@@ -52,3 +53,8 @@ def check_page(language, gamename):
         return jsonify(None)
     return jsonify(**info)
 
+
+@app.route('/api/<langauage>/mines/<gamename>')
+def start_mines(language, gamename):
+    wiki = get_wiki(language)
+    return jsonify(**get_game_board(wiki, gamename))
