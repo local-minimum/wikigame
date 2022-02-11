@@ -1,5 +1,6 @@
 from collections import Counter
 from functools import lru_cache
+import logging
 from random import Random
 
 from wikigame.wiki import get_page_info
@@ -16,6 +17,7 @@ def get_game_board(wiki, gamename, game_size=20, bombs=3, links=30):
 
     # collect pages
     page = get_target(wiki, gamename)
+    logging.warning(f'Convo mines {gamename} seeded by "{page["title"]}" ({wiki.language})')
     while len(pages) < game_size:
         if page is not None:
             pages.append(page)
@@ -41,14 +43,16 @@ def get_game_board(wiki, gamename, game_size=20, bombs=3, links=30):
         r.shuffle(keepers)
         page['links'] = keepers
 
-
+    # shuffle
+    r.shuffle(pages)
     indices = list(range(len(pages)))
     r.shuffle(indices)
     starts = indices[bombs:]
     if len(starts) < 2:
         raise ValueError('Not enough non-bombs')
     r.shuffle(starts)
-    
+
+    logging.warning(f'Game {gamename} will have nodes: {page_titles}')
     return {
         "pages": pages,
         "bombs": indices[:bombs],
