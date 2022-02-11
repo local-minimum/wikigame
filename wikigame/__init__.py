@@ -58,3 +58,11 @@ def check_page(language, gamename):
 def start_mines(language, gamename):
     wiki = get_wiki(language)
     return jsonify(**get_game_board(wiki, gamename))
+
+
+@app.route('/api/<language>/mines/<gamename>/page', methods=["POST"])
+def check_mines_page(language, gamename):
+    data = request.get_json()
+    wiki = get_wiki(language)
+    # get_mines_page(wiki, gamename, data['page'], data['pages'])
+    raise NotImplementedError()
