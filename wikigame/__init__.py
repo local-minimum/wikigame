@@ -54,7 +54,7 @@ def check_page(language, gamename):
     return jsonify(**info)
 
 
-@app.route('/api/<langauage>/mines/<gamename>')
+@app.route('/api/<language>/mines/<gamename>')
 def start_mines(language, gamename):
     wiki = get_wiki(language)
     return jsonify(**get_game_board(wiki, gamename))
