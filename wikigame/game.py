@@ -92,8 +92,12 @@ def get_start(wiki, gamename):
     return get_page_info(wiki, gamename, info['title'], target)
 
 
-def get_game_page(wiki, gamename, page):
-    target = get_target(wiki, gamename)
+def get_game_page(wiki, gamename, page, target):
+    if target is None:
+        target = get_target(wiki, gamename)
+    else:
+        return get_page_info(wiki, gamename, page, target)
+
     if target is None:
         return None
     return get_page_info(wiki, gamename, page, target['title'])

@@ -39,7 +39,7 @@ def send_home():
 @app.route('/mines.html')
 def send_mines():
     return send_from_directory('static', 'mines.html')
-    
+
 
 @app.route('/api/<language>/game/<gamename>')
 def start_game(language, gamename):
@@ -53,7 +53,7 @@ def start_game(language, gamename):
 def check_page(language, gamename):
     data = request.get_json()
     wiki = get_wiki(language)
-    info = get_game_page(wiki, gamename, data['page'])
+    info = get_game_page(wiki, gamename, data['page'], data.get('target'))
     if info is None:
         return jsonify(None)
     return jsonify(**info)
