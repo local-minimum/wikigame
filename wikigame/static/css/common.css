@@ -1,0 +1,24 @@
+.hidden {
+    display: none;
+}
+h1 {
+    text-transform: uppercase;
+}
+h2 {
+    text-transform: uppercase;    
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;    
+}
+.spacer {
+    flex-grow: 1000;
+    flex-shrink: 1000;
+}

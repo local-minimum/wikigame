@@ -1,7 +1,7 @@
 __version__ = '0.1.0'
 
 from flask import Flask, redirect, request, send_from_directory, jsonify
-from wikigame.convo_mines import get_game_board
+from wikigame.convo_mines import get_mines_game, get_mines_page
 from wikigame.game import get_game_page, get_start, get_target, init_game
 
 from wikigame.wiki import get_wiki
@@ -44,6 +44,11 @@ def favicon():
         mimetype='image/vnd.microsoft.icon',
     )
 
+ 
+@app.route('/mines.html')
+def send_mines():
+    return send_from_directory('static', 'mines.html')
+
 
 @app.route('/api/<language>/game/<gamename>')
 def start_game(language, gamename):
@@ -57,7 +62,7 @@ def start_game(language, gamename):
 def check_page(language, gamename):
     data = request.get_json()
     wiki = get_wiki(language)
-    info = get_game_page(wiki, gamename, data['page'])
+    info = get_game_page(wiki, gamename, data['page'], data.get('target'))
     if info is None:
         return jsonify(None)
     return jsonify(**info)
@@ -66,12 +71,11 @@ def check_page(language, gamename):
 @app.route('/api/<language>/mines/<gamename>')
 def start_mines(language, gamename):
     wiki = get_wiki(language)
-    return jsonify(**get_game_board(wiki, gamename))
+    return jsonify(**get_mines_game(wiki, gamename))
 
 
 @app.route('/api/<language>/mines/<gamename>/page', methods=["POST"])
 def check_mines_page(language, gamename):
     data = request.get_json()
     wiki = get_wiki(language)
-    # get_mines_page(wiki, gamename, data['page'], data['pages'])
-    raise NotImplementedError()
+    return jsonify(**get_mines_page(wiki, gamename, data['page'], data['pages']))

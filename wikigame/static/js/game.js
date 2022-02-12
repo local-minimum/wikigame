@@ -89,8 +89,13 @@ function showHistory() {
 
 function goTo(destination) {
     showNavigating();
+    const target = wikiStore.getTarget()?.title;
+    const payload = { page: destination };
+    if (target !== undefined) {
+        payload['target'] = target;
+    }
     axios
-        .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, { page: destination })
+        .post(`api/${wikiStore.getLanguage()}/game/${wikiStore.getGameName()}/page`, payload)
         .then(function (response) {
             if (response.data != null) {
                 wikiStore.setVisited(response.data);
