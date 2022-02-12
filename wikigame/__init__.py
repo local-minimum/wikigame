@@ -36,6 +36,11 @@ def send_home():
     return send_from_directory('static', 'index.html')
 
 
+@app.route('/mines.html')
+def send_mines():
+    return send_from_directory('static', 'mines.html')
+    
+
 @app.route('/api/<language>/game/<gamename>')
 def start_game(language, gamename):
     wiki = get_wiki(language)

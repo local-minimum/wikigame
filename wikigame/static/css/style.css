@@ -3,9 +3,6 @@ body {
     color: #062E03;
     margin: 0px;
 }
-.hidden {
-    display: none;
-}
 #playing-field {
     height: 100%;
     width: 100%;
@@ -28,9 +25,6 @@ body {
     margin-left: 0.5em;
     cursor: pointer;
 }
-h1 {
-    text-transform: uppercase;
-}
 #current-place {
     display: inline-block;
     width: 45%;
@@ -40,9 +34,6 @@ h1 {
     width: 20%;
     display: inline-block;
     padding: 1em;
-}
-h2 {
-    text-transform: uppercase;    
 }
 .description {
     background-color: #062E03;
@@ -86,21 +77,6 @@ h2 {
     background-color: #062E03;
     color: #728639;
     flex-grow: 1;
-}
-.row {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-.column {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;    
-}
-.spacer {
-    flex-grow: 1000;
-    flex-shrink: 1000;
 }
 #map {
     display: inline-block;
@@ -250,4 +226,3 @@ h2 {
     cursor: pointer;
     margin-top: 1em;
 }
-
