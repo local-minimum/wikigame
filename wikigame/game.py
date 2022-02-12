@@ -34,7 +34,6 @@ def init_game():
         with open(_LOCATION, 'r') as fh:
             for key, value in load(fh):
                 _KNOWN_GAMES[tuple(key)] = value
-        load_targets()
     except FileNotFoundError:
         pass
 
@@ -97,7 +96,4 @@ def get_game_page(wiki, gamename, page):
     target = get_target(wiki, gamename)
     if target is None:
         return None
-    info = get_page_info(wiki, gamename, page, target['title'])
-    if info is None:
-        return None 
-    return info
+    return get_page_info(wiki, gamename, page, target['title'])
