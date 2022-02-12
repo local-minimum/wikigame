@@ -36,6 +36,15 @@ def send_home():
     return send_from_directory('static', 'index.html')
 
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        'static',
+        'favicon.ico',
+        mimetype='image/vnd.microsoft.icon',
+    )
+
+
 @app.route('/api/<language>/game/<gamename>')
 def start_game(language, gamename):
     wiki = get_wiki(language)
