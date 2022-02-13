@@ -219,6 +219,7 @@ body {
     border-style: dashed;    
     border-radius: 5px;
     padding: 1em 0.5em 2em;
+    margin-top: 1em;
 }
 #challenger-info button {
     display: block;
