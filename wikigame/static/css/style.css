@@ -213,6 +213,12 @@ body {
     color: #728639;
     margin: 0.5em 1.5em;
 }
+#challenger {
+    border-width: 2px;
+    border-color: #FF964F;
+    border-style: dashed;    
+    border-radius: 5px;
+}
 #challenger-info button {
     display: block;
     font-size: 1em;
